@@ -72,3 +72,15 @@ Con esto podéis desencriptarlo y obtener las claves de acceso.
 Lo descargaremos en una linux en ```/opt``` con ```sudo git clone https://github.com/SpiderLabs/Responder.git```
 
 Ejecutaremos nuestro responder ```sudo python2.7 Responder.py -I eth0```
+
+En nuestro windows buscamos cualquier dirección
+
+![cf48a9ba66a9f1dbe858154106f286b6](https://user-images.githubusercontent.com/107114264/174586333-c4a60ef7-ab52-4b0d-8685-29383fe9dea1.png)
+
+Al buscar cualquier dirección, en nuestro kali a la escucha saldría mandándonos toda la información.
+
+![c8a168074091d2f93c3f0bac37e7e982](https://user-images.githubusercontent.com/107114264/174586475-81e32b2a-c5b6-43f7-9e7f-7205de823e97.png)
+
+Nombre de usuario, Dominio, Hash NTLM.
+
+Esto es todo por ahora, lo iré actualizando cuanto más sepa!
